@@ -10,11 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.springbootmongoDb.springbootMongoDb.model.user;
 import com.app.springbootmongoDb.springbootMongoDb.repoistory.IuserRepoistory;
+import com.app.springbootmongoDb.springbootMongoDb.repoistory.UserRepoistory;
 
 @RestController
 public class UserController {
 	@Autowired
 	public IuserRepoistory objRepos ;
+	
+	
+	@Autowired
+	public UserRepoistory objMongotemplate;
+	
 	
 	
 	@PostMapping("/userdetails")
@@ -27,5 +33,14 @@ public class UserController {
 	public List<user> getUserdetails() {
 		return objRepos.findAll();
 	}
+
+	@PostMapping("/saveuser")
+	public void postUserDetailswithMongoTemplate(@RequestBody user obj) {
+		System.out.println("user obje for saving details using mongo template features >>> " +obj.getEmail() );
+		objMongotemplate.saveUser(obj);
+	}
+
+	
 	
 }
+
